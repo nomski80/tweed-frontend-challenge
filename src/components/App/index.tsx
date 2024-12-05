@@ -1,14 +1,11 @@
-import React, { useEffect, useState, /* useContext */ } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router'
-
-// import { AuthProvider, AuthContext } from '../../context/authContext'
 
 import styles from './Style.module.scss'
 
 function App() {
 	// TODO: put theme context here
 	const [ walletId, /* setWalletId */ ] = useState('')
-	// const { walletId, setWalletId } = useContext(AuthContext)
 
 	React.useEffect(() => {
 		console.log(`!!! walletId:`, walletId)
@@ -23,9 +20,7 @@ function App() {
 
 	return (
 		<div className={styles.app}>
-			{/* <AuthProvider> */}
-				<Outlet />
-			{/* </AuthProvider> */}
+			<Outlet />
 		</div>
 	)
 }

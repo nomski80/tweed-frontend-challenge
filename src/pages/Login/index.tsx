@@ -1,7 +1,5 @@
-import React, { useState, /* useContext */ } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
-
-// import { AuthContext } from '../../context/authContext'
 
 import { connectWallet } from '../../services/metaMask'
 
@@ -15,7 +13,6 @@ function Login() {
 	const navigate = useNavigate()
 
 	const [ walletId, setWalletId ] = useState('')
-	// const { walletId, setWalletId } = useContext(AuthContext)
 
 	React.useEffect(() => {
 		console.log(`walletId:`, walletId)

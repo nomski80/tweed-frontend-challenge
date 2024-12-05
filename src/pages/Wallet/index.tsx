@@ -1,7 +1,6 @@
-import { useState, useEffect, /* useContext */ } from 'react'
+import { useState, useEffect } from 'react'
 
 import { getWalletData } from '../../services/metaMask'
-// import { AuthContext } from '../../context/authContext'
 
 import styles from './Style.module.scss'
 
@@ -12,7 +11,6 @@ type WalletData = {
 
 function Wallet() {
 	const [ walletId ] = useState('')
-	// const { walletId } = useContext(AuthContext)
 
 	const [ walletData, setWalletData ] = useState<WalletData>({})
 	useEffect(() => {
