@@ -1,16 +1,24 @@
-import { useCallback, useState } from 'react'
+import { useState, useCallback } from 'react'
 
 import tweedLogo from '../../assets/logo-tweed-light.svg'
+import spinner from '../../assets/spinner.gif'
 
 import styles from './Style.module.scss'
 
 function Login() {
-	const [ errorMessage, setErrorMessage ] = useState('')
+	const [ isLoggingIn, setIsLoggingIn ] = useState(false)
+	const [ errorMessage, /* setErrorMessage */] = useState('')
 
-	const handleLogin = useCallback(() => {
-		console.log(`Click`)
-		setErrorMessage('error')
-	}, [])
+	const handleLogin = useCallback(async () => {
+		if (isLoggingIn) {
+			setIsLoggingIn(false)
+		} else {
+			setIsLoggingIn(true)
+			console.log(`Click`)
+		}
+	}, [
+		isLoggingIn,
+	])
 
 	return (
 		<div className={styles.login}>
@@ -28,9 +36,12 @@ function Login() {
 			<div className={styles.buttonContainer}>
 				<button
 					onClick={handleLogin}
+					// disabled={isLoggingIn}
 					className={styles.loginButton}
 				>
-					Login with Metamask
+					{isLoggingIn ? (
+						<img src={spinner} className={styles.spinner} />
+					) : 'Login with Metamask'}
 				</button>
 
 				<div className={styles.errorMessage}>
