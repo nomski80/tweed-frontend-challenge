@@ -1,24 +1,43 @@
-import { useState, useCallback } from 'react'
+import React, { useState, /* useContext */ } from 'react'
+import { useNavigate } from 'react-router'
 
+// import { AuthContext } from '../../context/authContext'
+
+import { connectWallet } from '../../services/metaMask'
+
+// TODO: import logo based on theme context
 import tweedLogo from '../../assets/logo-tweed-light.svg'
 import spinner from '../../assets/spinner.gif'
 
 import styles from './Style.module.scss'
 
 function Login() {
-	const [ isLoggingIn, setIsLoggingIn ] = useState(false)
-	const [ errorMessage, /* setErrorMessage */] = useState('')
+	const navigate = useNavigate()
 
-	const handleLogin = useCallback(async () => {
-		if (isLoggingIn) {
+	const [ walletId, setWalletId ] = useState('')
+	// const { walletId, setWalletId } = useContext(AuthContext)
+
+	React.useEffect(() => {
+		console.log(`walletId:`, walletId)
+	}, [walletId])
+
+	const [ isLoggingIn, setIsLoggingIn ] = useState(false)
+	const [ errorMessage, setErrorMessage] = useState('')
+
+	async function handleLogin() {
+		setIsLoggingIn(true)
+		setErrorMessage('')
+
+		try {
+			const connectedWallet = await connectWallet()
+			setWalletId(connectedWallet)
+		} catch (error) {
+			console.error(error);
+			setErrorMessage('User not authenticated')
+		} finally {
 			setIsLoggingIn(false)
-		} else {
-			setIsLoggingIn(true)
-			console.log(`Click`)
 		}
-	}, [
-		isLoggingIn,
-	])
+	}
 
 	return (
 		<div className={styles.login}>
@@ -33,21 +52,30 @@ function Login() {
 				Welcome To Tweed!
 			</div>
 
-			<div className={styles.buttonContainer}>
+			{walletId ? (
+				<button
+					onClick={() => navigate('wallet')}
+					className={styles.loginButton}
+				>
+					View Wallet
+				</button>
+			) : (
+				<div className={styles.buttonContainer}>
 				<button
 					onClick={handleLogin}
-					// disabled={isLoggingIn}
+					disabled={isLoggingIn}
 					className={styles.loginButton}
 				>
 					{isLoggingIn ? (
 						<img src={spinner} className={styles.spinner} />
-					) : 'Login with Metamask'}
+					) : 'Login with MetaMask'}
 				</button>
 
 				<div className={styles.errorMessage}>
 					{errorMessage}
 				</div>
-			</div>
+				</div>
+			)}
 		</div>
 	)
 }

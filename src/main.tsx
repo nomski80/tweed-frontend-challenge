@@ -5,6 +5,8 @@ import {
 	createBrowserRouter,
 } from "react-router"
 
+import { getAccount } from './services/metaMask'
+
 import App from './components/App'
 
 import Main from './pages/Main'
@@ -17,6 +19,25 @@ const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <App />,
+		// loader: async () => {
+		// // 	try {
+		// 	const nom = await getAccount()
+		// 	console.log(`nom:`, nom)
+		// // 		if (!isAuthed) {
+		// // 			throw 'Not Authorized'
+		// // 		}
+
+		// // 		return {
+		// // 			walletId: localStorage.getItem('walletId')
+		// // 		}
+		// // 	} catch (error) {
+		// // 		console.error(error);
+		// // 		localStorage.removeItem('walletId')
+
+		// // 		return {}
+		// // 	}
+		// 	return {}
+		// },
 		children: [
 			{
 				index: true,
@@ -31,6 +52,8 @@ const router = createBrowserRouter([
 				element: <Wallet />,
 			},
 		],
+		// TODO: error page
+		// errorElement: <ErrorPage />,
 	},
 ])
 

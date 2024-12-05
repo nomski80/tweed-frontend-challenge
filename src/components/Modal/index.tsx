@@ -1,10 +1,12 @@
-import { forwardRef, useRef, useImperativeHandle, PropsWithChildren } from 'react'
+import { useRef, forwardRef, useImperativeHandle, PropsWithChildren } from 'react'
 
 import styles from './Style.module.scss'
 
 type ModalProps = {
 	title: string,
 }
+
+// TODO: figure out a way to pass down the open-state of the modal so that we can reset the child's state
 
 const Modal = forwardRef(function Modal(props: PropsWithChildren<ModalProps>, ref) {
 	const {
@@ -16,11 +18,11 @@ const Modal = forwardRef(function Modal(props: PropsWithChildren<ModalProps>, re
 
 	useImperativeHandle(ref, () => {
 		return {
-			showModal() {
-				modalRef.current?.showModal()
-			},
 			close() {
 				modalRef.current?.close()
+			},
+			showModal() {
+				modalRef.current?.showModal()
 			},
 		}
 	})
