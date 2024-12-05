@@ -4,6 +4,10 @@
 	position: relative;
 	border-radius: 5px;
 
+	&::backdrop {
+		backdrop-filter: blur(2px);
+	}
+
 	& > * {
 		padding: 1em;
 	}
