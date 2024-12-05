@@ -1,11 +1,11 @@
-import Main from '../../pages/Main'
+import { Outlet } from 'react-router'
 
 import styles from './Style.module.scss'
 
 function App() {
 	return (
 		<div className={styles.app}>
-			<Main />
+			<Outlet />
 		</div>
 	)
 }
