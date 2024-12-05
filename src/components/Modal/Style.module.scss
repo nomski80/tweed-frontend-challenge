@@ -1,0 +1,32 @@
+.modal {
+	min-width: 300px;
+	padding: 0;
+	position: relative;
+	border-radius: 5px;
+
+	& > * {
+		padding: 1em;
+	}
+}
+
+.header {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	border-bottom: solid 1px white;
+
+	.tweedLogo {
+		width: 20px;
+	}
+}
+
+.closeButton {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	cursor: pointer;
+}
+
+.body {
+
+}
