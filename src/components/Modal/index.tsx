@@ -1,7 +1,5 @@
 import { forwardRef, useRef, useImperativeHandle, PropsWithChildren } from 'react'
 
-import tweedLogo from '../../assets/logo-tweed-light.svg'
-
 import styles from './Style.module.scss'
 
 type ModalProps = {
@@ -43,7 +41,7 @@ const Modal = forwardRef(function Modal(props: PropsWithChildren<ModalProps>, re
 				>
 					X
 				</div>
-				<img src={tweedLogo} className={styles.tweedLogo} />
+
 				{title}
 			</div>
 
