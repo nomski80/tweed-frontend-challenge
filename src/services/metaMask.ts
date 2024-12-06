@@ -1,8 +1,8 @@
-import { formatBalance, formatChainName } from "../utils";
+import { formatBalance, formatChainName } from '../utils';
 
 function validateEthereum() {
-	if (typeof window.ethereum === "undefined") {
-		throw "MetaMask is not installed!"
+	if (typeof window.ethereum === 'undefined') {
+		throw 'MetaMask is not installed!'
 	}
 }
 
@@ -10,7 +10,7 @@ export async function connectWallet() {
 	validateEthereum()
 
 	const accounts = await window.ethereum.request({
-		method: "eth_requestAccounts"
+		method: 'eth_requestAccounts'
 	});
 
 	return accounts[0]
@@ -20,7 +20,7 @@ export async function checkEthereum() {
 	validateEthereum()
 
 	const permissions = await window.ethereum.request({
-		method: "wallet_getPermissions",
+		method: 'wallet_getPermissions',
 	})
 
 	console.log(`permissions:`, permissions)

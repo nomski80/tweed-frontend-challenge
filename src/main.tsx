@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import {
 	RouterProvider,
 	createBrowserRouter,
-} from "react-router"
+} from 'react-router'
 import { Provider } from 'react-redux'
 import {
 	persistStore,

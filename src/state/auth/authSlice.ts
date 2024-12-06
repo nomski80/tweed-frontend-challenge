@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { connectWallet } from "../../services/metaMask";
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { connectWallet } from '../../services/metaMask';
 
 interface AuthState {
 	walletId: string;
