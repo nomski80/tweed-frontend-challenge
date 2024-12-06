@@ -1,55 +1,17 @@
-import { useEffect } from 'react'
 import { Outlet } from 'react-router'
-import { useDispatch } from 'react-redux'
 
-import { clearWalletId, setWalletId } from '../../state/auth/authSlice'
-import { setIsDarkMode } from '../../state/theme/themeSlice'
-
-import { getAccount } from '../../services/metaMask'
-import { AppDispatch } from '../../state/store'
+import { useDarkModeListener } from '../../hooks/themeHooks'
+import { useResetWalletId, useWalletChangeListener } from '../../hooks/metaMaskHooks'
 
 import Header from '../Header'
 
 import styles from './Style.module.scss'
 
 function App() {
-	const dispatch = useDispatch<AppDispatch>()
+	useResetWalletId()
+	useWalletChangeListener()
 
-	useEffect(() => {
-		async function get() {
-			const account = await getAccount()
-			if (!account) {
-				dispatch(clearWalletId())
-			}
-		}
-		get()
-	}, [dispatch])
-
-	useEffect(() => {
-		// TODO: consider making this a custom hook
-		function handleAccountsChanged(accounts: string[]) {
-			dispatch(setWalletId(accounts[0] || ''))
-		}
-
-		window.ethereum.on('accountsChanged', handleAccountsChanged)
-
-		return () => {
-			window.ethereum.removeListener('accountsChanged', handleAccountsChanged)
-		}
-	}, [dispatch])
-
-	useEffect(() => {
-		function handleThemeChange(e: MediaQueryListEvent) {
-			const isDarkMode = e.matches
-			dispatch(setIsDarkMode(isDarkMode))
-		}
-
-		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', handleThemeChange)
-
-		return () => {
-			window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', handleThemeChange)
-		}
-	}, [dispatch])
+	useDarkModeListener()
 
 	return (
 		<div className={styles.app}>
