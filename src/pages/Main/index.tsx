@@ -8,7 +8,7 @@ import styles from './Style.module.scss'
 function Main() {
 	const modalRef = useRef<HTMLDialogElement>(null)
 
-  return (
+	return (
 		<div className={styles.main}>
 			<button
 				onClick={() => {
