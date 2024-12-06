@@ -1,3 +1,5 @@
+import { RgbColor } from 'react-colorful'
+
 export function formatBalance(balance: string) {
 	return parseInt(balance, 16)
 }
@@ -54,4 +56,12 @@ const chainMapping:{[chainId: string]: string} = {
 
 export function formatChainName(chainId: string) {
 	return chainMapping[chainId] || ''
+}
+
+export function getColorString(color: RgbColor) {
+	return `rgb(${color.r}, ${color.g}, ${color.b}`
+}
+
+export function getBrightness({ r, g, b }: RgbColor) {
+	return (r * 299 + g * 587 + b * 114) / 1000
 }

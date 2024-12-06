@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { AppDispatch, RootState } from '../../state/store'
 import { signIn } from '../../state/auth/authSlice'
+import { AppDispatch, RootState } from '../../state/store'
+
+import Button from '../../components/Button'
 
 // TODO: use colors from theme
 // TODO: import logo based on isDarkMode
@@ -21,7 +23,6 @@ function Login() {
 
 	return (
 		<div
-			// style={{}} // TODO: use bg-color from theme
 			className={styles.login}
 		>
 			<div>
@@ -36,19 +37,17 @@ function Login() {
 			</div>
 
 			{walletId ? (
-				// TODO: consider extracting to new component
-				<button
-					// style={{}} // TODO: use bg-color from theme
+				<Button
+					// bgColor={} // TODO: use bg-color from theme
 					onClick={() => navigate('wallet')}
 					className={styles.loginButton}
 				>
 					View Wallet
-				</button>
+				</Button>
 			) : (
-				// TODO: consider extracting to new component
 				<div className={styles.buttonContainer}>
-					<button
-						// style={{}} // TODO: use bg-color from theme
+					<Button
+						// bgColor={} // TODO: use bg-color from theme
 						onClick={async () => {
 							const request = await dispatch(signIn())
 							if (request.type.includes('fulfilled')) {
@@ -61,7 +60,7 @@ function Login() {
 						{isLoggingIn ? (
 							<img src={spinner} className={styles.spinner} />
 						) : 'Login with MetaMask'}
-					</button>
+					</Button>
 
 					<div className={styles.errorMessage}>
 						{status === 'error' ? 'User not authenticated' : ''}

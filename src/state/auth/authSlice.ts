@@ -19,10 +19,6 @@ const authSlice = createSlice({
 			state.walletId = ''
 			state.status = 'idle'
 		},
-		resetStatus: (state) => {
-			// TODO: do i need this?
-			state.status = 'idle'
-		},
 		setWalletId: (state, action: PayloadAction<string>) => {
 			state.status = 'idle'
 			state.walletId = action.payload
@@ -51,6 +47,6 @@ export const signIn = createAsyncThunk(
 	}
 )
 
-export const { clearWalletId, resetStatus, setWalletId } = authSlice.actions
+export const { clearWalletId, setWalletId } = authSlice.actions
 
 export default authSlice.reducer
