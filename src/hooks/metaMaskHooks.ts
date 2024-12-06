@@ -25,7 +25,6 @@ export function useWalletChangeListener() {
 	const dispatch = useDispatch<AppDispatch>()
 
 	useEffect(() => {
-		// TODO: consider making this a custom hook
 		function handleAccountsChanged(accounts: string[]) {
 			dispatch(setWalletId(accounts[0] || ''))
 		}
