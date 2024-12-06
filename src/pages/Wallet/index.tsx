@@ -13,7 +13,20 @@ type WalletData = {
 	network?: string
 }
 
-// TODO: styling
+function InfoItem({title, value}: {title: string, value?: string | number}) {
+	return (
+		<div className={styles.infoItem}>
+			<div className={styles.title}>
+				{title}
+			</div>
+
+			<div className={styles.value}>
+				{value}
+			</div>
+		</div>
+	)
+}
+
 function Wallet() {
 	const navigate = useNavigate()
 	const walletId = useSelector((state: RootState) => state.auth.walletId)
@@ -29,7 +42,7 @@ function Wallet() {
 			setWalletData(data)
 		}
 		getData()
-	}, [walletId])
+	}, [walletId, navigate])
 
 	return (
 		<div className={styles.wallet}>
@@ -37,16 +50,16 @@ function Wallet() {
 				Wallet
 			</h1>
 
-			<div className={styles.walletData}>
-				<ul>
-					<li>
-						Balance: {walletData.balance}
-					</li>
+			<div className={styles.walletInfo}>
+				<InfoItem
+					title="Balance"
+					value={walletData.balance}
+				/>
 
-					<li>
-						Connected Network: {walletData.network}
-					</li>
-				</ul>
+				<InfoItem
+					title="Connected Network"
+					value={walletData.network}
+				/>
 			</div>
 		</div>
 	)
