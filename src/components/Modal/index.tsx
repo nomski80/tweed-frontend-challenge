@@ -6,8 +6,6 @@ type ModalProps = {
 	title: string,
 }
 
-// TODO: figure out a way to pass down the open-state of the modal so that we can reset the child's state
-
 const Modal = forwardRef(function Modal(props: PropsWithChildren<ModalProps>, ref) {
 	const {
 		title,

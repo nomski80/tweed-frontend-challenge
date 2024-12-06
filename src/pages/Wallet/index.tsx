@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+
+import { RootState } from '../../state/store'
 
 import { getWalletData } from '../../services/metaMask'
 
@@ -10,7 +13,7 @@ type WalletData = {
 }
 
 function Wallet() {
-	const [ walletId ] = useState('')
+	const walletId = useSelector((state: RootState) => state.auth.walletId)
 
 	const [ walletData, setWalletData ] = useState<WalletData>({})
 	useEffect(() => {

@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { connectWallet } from '../../services/metaMask'
+import { AppDispatch, RootState } from '../../state/store'
+import { signIn } from '../../state/auth/authSlice'
 
 // TODO: import logo based on theme context
 import tweedLogo from '../../assets/logo-tweed-light.svg'
@@ -12,29 +14,18 @@ import styles from './Style.module.scss'
 function Login() {
 	const navigate = useNavigate()
 
-	const [ walletId, setWalletId ] = useState('')
+	const { status, walletId } = useSelector((state:RootState) => state.auth)
+	const dispatch = useDispatch<AppDispatch>()
 
-	React.useEffect(() => {
-		console.log(`walletId:`, walletId)
-	}, [walletId])
+	// React.useEffect(() => {
+	// 	console.log(`status:`, status)
+	// }, [status])
 
-	const [ isLoggingIn, setIsLoggingIn ] = useState(false)
-	const [ errorMessage, setErrorMessage] = useState('')
+	// React.useEffect(() => {
+	// 	console.log(`walletId:`, walletId)
+	// }, [walletId])
 
-	async function handleLogin() {
-		setIsLoggingIn(true)
-		setErrorMessage('')
-
-		try {
-			const connectedWallet = await connectWallet()
-			setWalletId(connectedWallet)
-		} catch (error) {
-			console.error(error);
-			setErrorMessage('User not authenticated')
-		} finally {
-			setIsLoggingIn(false)
-		}
-	}
+	const isLoggingIn = status === 'pending'
 
 	return (
 		<div className={styles.login}>
@@ -59,7 +50,7 @@ function Login() {
 			) : (
 				<div className={styles.buttonContainer}>
 				<button
-					onClick={handleLogin}
+					onClick={() => dispatch(signIn())}
 					disabled={isLoggingIn}
 					className={styles.loginButton}
 				>
@@ -69,7 +60,7 @@ function Login() {
 				</button>
 
 				<div className={styles.errorMessage}>
-					{errorMessage}
+					{status === 'error' ? 'User not authenticated' : ''}
 				</div>
 				</div>
 			)}

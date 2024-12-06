@@ -4,6 +4,9 @@ import {
 	RouterProvider,
 	createBrowserRouter,
 } from "react-router"
+import { Provider } from 'react-redux'
+
+import { store } from './state/store'
 
 import { getAccount } from './services/metaMask'
 
@@ -59,6 +62,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
-		<RouterProvider router={router} />
+		<Provider store={store}>
+			<RouterProvider router={router} />
+		</Provider>
 	</StrictMode>
 )
