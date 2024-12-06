@@ -1,27 +1,16 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Outlet } from 'react-router'
-import {
-	useDispatch,
-	// useSelector,
-} from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { getAccount } from '../../services/metaMask'
-import {
-	// RootState,
-	AppDispatch,
-} from '../../state/store'
+import { AppDispatch } from '../../state/store'
 
 import styles from './Style.module.scss'
 import { clearWalletId, setWalletId } from '../../state/auth/authSlice'
 
+// TODO: add header navbar: Logo (home) | Wallet (disabled if not signed in) | Customize
 function App() {
-	// TODO: put theme context here
 	const dispatch = useDispatch<AppDispatch>()
-	// const walletId = useSelector((state: RootState) => state.auth.walletId)
-
-	// React.useEffect(() => {
-	// 	console.log(`!!! walletId:`, walletId)
-	// }, [walletId])
 
 	useEffect(() => {
 		async function get() {
@@ -34,6 +23,7 @@ function App() {
 	}, [dispatch])
 
 	useEffect(() => {
+		// TODO: consider making this a custom hook
 		function handleAccountsChanged(accounts: string[]) {
 			dispatch(setWalletId(accounts[0] || ''))
 		}

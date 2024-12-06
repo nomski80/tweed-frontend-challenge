@@ -1,13 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import {
-	RouterProvider,
-	createBrowserRouter,
-} from 'react-router'
+import { RouterProvider, createBrowserRouter } from 'react-router'
 import { Provider } from 'react-redux'
-import {
-	persistStore,
-} from 'redux-persist'
+import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 
 import { store } from './state/store'
@@ -17,6 +12,7 @@ import App from './components/App'
 import Main from './pages/Main'
 import Wallet from './pages/Wallet';
 import Customize from './pages/Customize'
+import ErrorPage from './pages/ErrorPage'
 
 import './index.scss'
 
@@ -38,8 +34,7 @@ const router = createBrowserRouter([
 				element: <Wallet />,
 			},
 		],
-		// TODO: error page
-		// errorElement: <ErrorPage />,
+		errorElement: <ErrorPage />,
 	},
 ])
 

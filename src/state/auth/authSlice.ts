@@ -20,6 +20,7 @@ const authSlice = createSlice({
 			state.status = 'idle'
 		},
 		resetStatus: (state) => {
+			// TODO: do i need this?
 			state.status = 'idle'
 		},
 		setWalletId: (state, action: PayloadAction<string>) => {

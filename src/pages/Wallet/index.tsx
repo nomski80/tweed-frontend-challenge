@@ -13,6 +13,7 @@ type WalletData = {
 	network?: string
 }
 
+// TODO: styling
 function Wallet() {
 	const navigate = useNavigate()
 	const walletId = useSelector((state: RootState) => state.auth.walletId)

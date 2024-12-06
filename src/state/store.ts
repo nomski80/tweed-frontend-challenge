@@ -12,6 +12,7 @@ import {
 
 import authReducer from './auth/authSlice'
 
+// TODO: create slice for theme. data should contain bg-color for modal, bg-color for signIn button and isDarkMode
 const reducers = combineReducers({
 	auth: authReducer,
 })

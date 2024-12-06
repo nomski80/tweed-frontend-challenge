@@ -1,5 +1,9 @@
 import styles from './Style.module.scss'
 
+// TODO: color picker for bg of login modal
+// TODO: color picker for bg of signIn button
+// TODO: persiste state
+
 function Customize() {
 	return (
 		<div className={styles.customize}>
