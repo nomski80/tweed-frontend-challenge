@@ -1,4 +1,3 @@
-import React from 'react'
 import { useNavigate } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -41,19 +40,24 @@ function Login() {
 				</button>
 			) : (
 				<div className={styles.buttonContainer}>
-				<button
-					onClick={() => dispatch(signIn())}
-					disabled={isLoggingIn}
-					className={styles.loginButton}
-				>
-					{isLoggingIn ? (
-						<img src={spinner} className={styles.spinner} />
-					) : 'Login with MetaMask'}
-				</button>
+					<button
+						onClick={async () => {
+							const request = await dispatch(signIn())
+							if (request.type.includes('fulfilled')) {
+								navigate('wallet')
+							}
+						}}
+						disabled={isLoggingIn}
+						className={styles.loginButton}
+					>
+						{isLoggingIn ? (
+							<img src={spinner} className={styles.spinner} />
+						) : 'Login with MetaMask'}
+					</button>
 
-				<div className={styles.errorMessage}>
-					{status === 'error' ? 'User not authenticated' : ''}
-				</div>
+					<div className={styles.errorMessage}>
+						{status === 'error' ? 'User not authenticated' : ''}
+					</div>
 				</div>
 			)}
 		</div>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
 
 import { RootState } from '../../state/store'
 
@@ -13,10 +14,15 @@ type WalletData = {
 }
 
 function Wallet() {
+	const navigate = useNavigate()
 	const walletId = useSelector((state: RootState) => state.auth.walletId)
 
 	const [ walletData, setWalletData ] = useState<WalletData>({})
 	useEffect(() => {
+		if (!walletId) {
+			navigate('/')
+		}
+
 		async function getData() {
 			const data = await getWalletData(walletId || '')
 			setWalletData(data)
