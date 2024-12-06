@@ -17,9 +17,14 @@ const authSlice = createSlice({
 	reducers: {
 		clearWalletId: (state) => {
 			state.walletId = ''
+			state.status = 'idle'
 		},
 		resetStatus: (state) => {
 			state.status = 'idle'
+		},
+		setWalletId: (state, action: PayloadAction<string>) => {
+			state.status = 'idle'
+			state.walletId = action.payload
 		}
 	},
 	extraReducers: (builder) => {
@@ -45,6 +50,6 @@ export const signIn = createAsyncThunk(
 	}
 )
 
-export const { clearWalletId, resetStatus } = authSlice.actions
+export const { clearWalletId, resetStatus, setWalletId } = authSlice.actions
 
 export default authSlice.reducer

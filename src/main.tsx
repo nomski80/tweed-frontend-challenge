@@ -5,10 +5,12 @@ import {
 	createBrowserRouter,
 } from "react-router"
 import { Provider } from 'react-redux'
+import {
+	persistStore,
+} from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
 
 import { store } from './state/store'
-
-import { getAccount } from './services/metaMask'
 
 import App from './components/App'
 
@@ -22,25 +24,6 @@ const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <App />,
-		// loader: async () => {
-		// // 	try {
-		// 	const nom = await getAccount()
-		// 	console.log(`nom:`, nom)
-		// // 		if (!isAuthed) {
-		// // 			throw 'Not Authorized'
-		// // 		}
-
-		// // 		return {
-		// // 			walletId: localStorage.getItem('walletId')
-		// // 		}
-		// // 	} catch (error) {
-		// // 		console.error(error);
-		// // 		localStorage.removeItem('walletId')
-
-		// // 		return {}
-		// // 	}
-		// 	return {}
-		// },
 		children: [
 			{
 				index: true,
@@ -60,10 +43,14 @@ const router = createBrowserRouter([
 	},
 ])
 
+const persistor = persistStore(store);
+
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
 		<Provider store={store}>
-			<RouterProvider router={router} />
+			<PersistGate loading={null} persistor={persistor}>
+				<RouterProvider router={router} />
+			</PersistGate>
 		</Provider>
 	</StrictMode>
 )

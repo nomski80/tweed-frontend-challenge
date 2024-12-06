@@ -14,16 +14,8 @@ import styles from './Style.module.scss'
 function Login() {
 	const navigate = useNavigate()
 
-	const { status, walletId } = useSelector((state:RootState) => state.auth)
+	const { status, walletId } = useSelector((state: RootState) => state.auth)
 	const dispatch = useDispatch<AppDispatch>()
-
-	// React.useEffect(() => {
-	// 	console.log(`status:`, status)
-	// }, [status])
-
-	// React.useEffect(() => {
-	// 	console.log(`walletId:`, walletId)
-	// }, [walletId])
 
 	const isLoggingIn = status === 'pending'
 
