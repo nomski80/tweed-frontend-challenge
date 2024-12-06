@@ -66,12 +66,16 @@ function getBrightness({ r, g, b }: RgbColor) {
 	return (r * 299 + g * 587 + b * 114) / 1000
 }
 
+export function getIsBright(color: RgbColor) {
+	return getBrightness(color) > 128
+}
+
 export function getCustomStyle(color?: RgbColor) {
 	const result: {background?: string, color?: string} = {}
 
 	if (color) {
 		result.background = getColorString(color)
-		result.color = getBrightness(color) > 128 ? "#000" : "#FFF";
+		result.color = getIsBright(color) ? "#000" : "#FFF";
 	}
 
 	return result

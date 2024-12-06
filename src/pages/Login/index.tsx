@@ -11,16 +11,17 @@ import tweedLogoDark from '../../assets/logo-tweed-dark.svg'
 import spinner from '../../assets/spinner.gif'
 
 import styles from './Style.module.scss'
+import { getIsBright } from '../../utils'
 
 function Login() {
 	const navigate = useNavigate()
-
-	const { status, walletId } = useSelector((state: RootState) => state.auth)
-	const { isDarkMode, buttonBgColor } = useSelector((state: RootState) => state.theme)
-
 	const dispatch = useDispatch<AppDispatch>()
 
+	const { status, walletId } = useSelector((state: RootState) => state.auth)
+	const { buttonBgColor, modalBgColor } = useSelector((state: RootState) => state.theme)
+
 	const isLoggingIn = status === 'pending'
+	const isBright = getIsBright(modalBgColor)
 
 	return (
 		<div
@@ -28,7 +29,7 @@ function Login() {
 		>
 			<div>
 				<img
-					src={isDarkMode ? tweedLogoLight : tweedLogoDark}
+					src={isBright ? tweedLogoDark : tweedLogoLight}
 					className={styles.tweedLogo}
 				/>
 			</div>
