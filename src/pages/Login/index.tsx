@@ -1,3 +1,4 @@
+import React from 'react'
 import { useNavigate } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -6,9 +7,8 @@ import { AppDispatch, RootState } from '../../state/store'
 
 import Button from '../../components/Button'
 
-// TODO: use colors from theme
-// TODO: import logo based on isDarkMode
-import tweedLogo from '../../assets/logo-tweed-light.svg'
+import tweedLogoLight from '../../assets/logo-tweed-light.svg'
+import tweedLogoDark from '../../assets/logo-tweed-dark.svg'
 import spinner from '../../assets/spinner.gif'
 
 import styles from './Style.module.scss'
@@ -17,6 +17,8 @@ function Login() {
 	const navigate = useNavigate()
 
 	const { status, walletId } = useSelector((state: RootState) => state.auth)
+	const { isDarkMode, buttonBgColor } = useSelector((state: RootState) => state.theme)
+
 	const dispatch = useDispatch<AppDispatch>()
 
 	const isLoggingIn = status === 'pending'
@@ -27,7 +29,7 @@ function Login() {
 		>
 			<div>
 				<img
-					src={tweedLogo}
+					src={isDarkMode ? tweedLogoLight : tweedLogoDark}
 					className={styles.tweedLogo}
 				/>
 			</div>
@@ -38,7 +40,7 @@ function Login() {
 
 			{walletId ? (
 				<Button
-					// bgColor={} // TODO: use bg-color from theme
+					bgColor={buttonBgColor}
 					onClick={() => navigate('wallet')}
 					className={styles.loginButton}
 				>
@@ -47,7 +49,7 @@ function Login() {
 			) : (
 				<div className={styles.buttonContainer}>
 					<Button
-						// bgColor={} // TODO: use bg-color from theme
+						bgColor={buttonBgColor}
 						onClick={async () => {
 							const request = await dispatch(signIn())
 							if (request.type.includes('fulfilled')) {

@@ -58,10 +58,21 @@ export function formatChainName(chainId: string) {
 	return chainMapping[chainId] || ''
 }
 
-export function getColorString(color: RgbColor) {
+function getColorString(color: RgbColor) {
 	return `rgb(${color.r}, ${color.g}, ${color.b}`
 }
 
-export function getBrightness({ r, g, b }: RgbColor) {
+function getBrightness({ r, g, b }: RgbColor) {
 	return (r * 299 + g * 587 + b * 114) / 1000
+}
+
+export function getCustomStyle(color?: RgbColor) {
+	const result: {background?: string, color?: string} = {}
+
+	if (color) {
+		result.background = getColorString(color)
+		result.color = getBrightness(color) > 128 ? "#000" : "#FFF";
+	}
+
+	return result
 }

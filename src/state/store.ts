@@ -11,10 +11,11 @@ import {
 } from 'redux-persist'
 
 import authReducer from './auth/authSlice'
+import themeReducer from './theme/themeSlice'
 
-// TODO: create slice for theme. data should contain bg-color for modal, bg-color for signIn button and isDarkMode
 const reducers = combineReducers({
 	auth: authReducer,
+	theme: themeReducer,
 })
 
 const persistConfig = {

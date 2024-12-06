@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 import { RgbColor } from 'react-colorful'
 import cx from 'classnames'
 
-import { getBrightness, getColorString } from '../../utils';
+import { getCustomStyle } from '../../utils';
 
 import styles from './Style.module.scss'
 
@@ -18,12 +18,7 @@ function Button({
 	...props
 }: PropsWithChildren<ButtonProps>) {
 
-	// TODO: move to util function
-	const customStyle: {background?: string, color?: string} = {}
-	if (bgColor) {
-		customStyle.background = getColorString(bgColor)
-		customStyle.color = getBrightness(bgColor) > 128 ? "#000" : "#FFF";
-	}
+	const customStyle = getCustomStyle(bgColor)
 
 	return (
 		<button

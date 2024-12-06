@@ -1,16 +1,18 @@
-import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { RgbColorPicker, RgbColor } from 'react-colorful'
+
+import { setButtonBgColor, setModalBgColor } from '../../state/theme/themeSlice'
+import { AppDispatch, RootState } from '../../state/store'
 
 import Modal from '../../components/Modal'
 import Button from '../../components/Button'
 
 import styles from './Style.module.scss'
 
-// TODO: persist state
 function Customize() {
-	// TODO: get from redux state
-	const [ buttonColor, setButtonColor ] = useState<RgbColor>({r: 72, g: 72, b: 72})
-	const [ modalColor, setModalColor ] = useState<RgbColor>({r: 0, g: 0, b: 0})
+	const { buttonBgColor, modalBgColor } = useSelector((state: RootState) => state.theme)
+
+	const dispatch = useDispatch<AppDispatch>()
 
 	return (
 		<div className={styles.customize}>
@@ -20,13 +22,13 @@ function Customize() {
 
 			<div className={styles.customizeOptions}>
 				<div className={styles.option}>
-					<Button bgColor={buttonColor}>
+					<Button bgColor={buttonBgColor}>
 						Button
 					</Button>
 
 					<RgbColorPicker
-						color={buttonColor}
-						onChange={setButtonColor}
+						color={buttonBgColor}
+						onChange={(selectedColor: RgbColor) => dispatch(setButtonBgColor(selectedColor))}
 					/>
 				</div>
 
@@ -34,11 +36,11 @@ function Customize() {
 					<Modal
 						title="Modal Background"
 						isDemo={true}
-						bgColor={modalColor}
+						bgColor={modalBgColor}
 					>
 						<RgbColorPicker
-							color={modalColor}
-							onChange={setModalColor}
+							color={modalBgColor}
+							onChange={(selectedColor: RgbColor) => dispatch(setModalBgColor(selectedColor))}
 						/>
 					</Modal>
 				</div>

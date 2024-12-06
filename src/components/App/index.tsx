@@ -2,11 +2,13 @@ import { useEffect } from 'react'
 import { Outlet } from 'react-router'
 import { useDispatch } from 'react-redux'
 
+import { clearWalletId, setWalletId } from '../../state/auth/authSlice'
+import { setIsDarkMode } from '../../state/theme/themeSlice'
+
 import { getAccount } from '../../services/metaMask'
 import { AppDispatch } from '../../state/store'
 
 import styles from './Style.module.scss'
-import { clearWalletId, setWalletId } from '../../state/auth/authSlice'
 
 // TODO: add header navbar: Logo (home) | Wallet (disabled if not signed in) | Customize
 function App() {
@@ -32,6 +34,19 @@ function App() {
 
 		return () => {
 			window.ethereum.removeListener('accountsChanged', handleAccountsChanged)
+		}
+	}, [dispatch])
+
+	useEffect(() => {
+		function handleThemeChange(e: MediaQueryListEvent) {
+			const isDarkMode = e.matches
+			dispatch(setIsDarkMode(isDarkMode))
+		}
+
+		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', handleThemeChange)
+
+		return () => {
+			window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', handleThemeChange)
 		}
 	}, [dispatch])
 
