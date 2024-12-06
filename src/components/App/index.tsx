@@ -8,9 +8,10 @@ import { setIsDarkMode } from '../../state/theme/themeSlice'
 import { getAccount } from '../../services/metaMask'
 import { AppDispatch } from '../../state/store'
 
+import Header from '../Header'
+
 import styles from './Style.module.scss'
 
-// TODO: add header navbar: Logo (home) | Wallet (disabled if not signed in) | Customize
 function App() {
 	const dispatch = useDispatch<AppDispatch>()
 
@@ -52,6 +53,7 @@ function App() {
 
 	return (
 		<div className={styles.app}>
+			<Header />
 			<Outlet />
 		</div>
 	)
