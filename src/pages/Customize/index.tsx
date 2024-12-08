@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { RgbColorPicker, RgbColor } from 'react-colorful'
 
-import { setButtonBgColor, setModalBgColor } from '../../state/theme/themeSlice'
+import { resetTheme, setButtonBgColor, setModalBgColor } from '../../state/theme/themeSlice'
 import { AppDispatch, RootState } from '../../state/store'
 
 import Modal from '../../components/Modal'
@@ -43,6 +43,15 @@ function Customize() {
 							onChange={(selectedColor: RgbColor) => dispatch(setModalBgColor(selectedColor))}
 						/>
 					</Modal>
+				</div>
+
+				<div>
+					<Button
+						bgColor={buttonBgColor}
+						onClick={() => dispatch(resetTheme())}
+					>
+						Reset Customization
+					</Button>
 				</div>
 			</div>
 		</div>
