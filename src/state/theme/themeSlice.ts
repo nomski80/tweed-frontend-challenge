@@ -2,21 +2,26 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RgbColor } from 'react-colorful';
 
 interface ThemeState {
+	isDarkMode: boolean
 	modalBgColor: RgbColor
 	buttonBgColor: RgbColor
-	isDarkMode: boolean
 }
 
 const initialState: ThemeState = {
+	isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
 	modalBgColor: {r: 0, g: 0, b: 0},
 	buttonBgColor: {r: 48, g: 48, b: 48},
-	isDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches,
 }
 
 const themeSlice = createSlice({
 	name: 'theme',
 	initialState,
 	reducers: {
+		resetTheme: (state) => {
+			state.isDarkMode = initialState.isDarkMode
+			state.modalBgColor = initialState.modalBgColor
+			state.buttonBgColor = initialState.buttonBgColor
+		},
 		setIsDarkMode: (state, action: PayloadAction<boolean>) => {
 			state.isDarkMode = action.payload
 		},
@@ -29,6 +34,6 @@ const themeSlice = createSlice({
 	},
 })
 
-export const { setIsDarkMode, setModalBgColor,	setButtonBgColor } = themeSlice.actions
+export const { resetTheme, setIsDarkMode, setModalBgColor, setButtonBgColor } = themeSlice.actions
 
 export default themeSlice.reducer
