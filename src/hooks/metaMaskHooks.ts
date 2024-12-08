@@ -12,6 +12,7 @@ export function useResetWalletId() {
 	useEffect(() => {
 		async function get() {
 			const account = await getAccount()
+
 			if (!account) {
 				dispatch(clearWalletId())
 			}
@@ -25,6 +26,10 @@ export function useWalletChangeListener() {
 	const dispatch = useDispatch<AppDispatch>()
 
 	useEffect(() => {
+		if (!window.ethereum) {
+			return
+		}
+
 		function handleAccountsChanged(accounts: string[]) {
 			dispatch(setWalletId(accounts[0] || ''))
 		}
